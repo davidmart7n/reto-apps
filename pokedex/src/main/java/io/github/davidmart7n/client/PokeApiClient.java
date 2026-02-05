@@ -10,7 +10,6 @@ import java.net.http.HttpResponse.BodyHandlers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.davidmart7n.domain.Pokemon;
 
 public class PokeApiClient {
 

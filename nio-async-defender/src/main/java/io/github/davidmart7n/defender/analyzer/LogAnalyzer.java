@@ -1,5 +1,8 @@
 package io.github.davidmart7n.defender.analyzer;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -11,11 +14,15 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.davidmart7n.defender.model.LogEntry;
+import io.github.davidmart7n.defender.writer.ReportWriter;
 
 public class LogAnalyzer {
+
+    private final AtomicInteger processedLinesCount = new AtomicInteger(0);
+    private final AtomicInteger detectedThreatsCount = new AtomicInteger(0);
+    private final Map<String, Integer> attacksByIp = new ConcurrentHashMap<>();
 
     private static final List<String> DANGEROUS_PATHS = List.of("/admin", "/.env", "/etc/passwd", "/phpmyadmin",
             "/setup.cgi", "/shell.jsp");
@@ -65,6 +72,15 @@ public class LogAnalyzer {
             case "WATCH" -> System.out.println("👀 [MONITOR] IP " + ip + " bajo vigilancia estricta.");
             default -> System.out.println("✅ [INFO] Sin acciones requeridas para: " + ip);
         }
+    }
+
+    public void finalizeAnalysis(String reportPath) {
+
+        ReportWriter.saveReport(
+                reportPath,
+                processedLinesCount.get(),
+                detectedThreatsCount.get(),
+                attacksByIp);
     }
 
 }

@@ -1,0 +1,5 @@
+=== DEFENDER SECURITY REPORT ===
+Total lines processed: 0
+Threats detected: 0
+------------------------------------
+Top Attacking IPs:

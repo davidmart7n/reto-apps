@@ -11,25 +11,27 @@ import io.github.davidmart7n.defender.config.AppConfig;
 import io.github.davidmart7n.defender.model.LogEntry;
 
 public class LogScanner {
-    
+
     LogAnalyzer analyzer;
 
-    public LogScanner(){
-        analyzer=new LogAnalyzer();
+    public LogScanner() {
+        analyzer = new LogAnalyzer();
     }
 
-    public static void fileReader(List<LogEntry> logsList, String fileName) throws Exception{
+    public void fileReader(String fileName) {
+        try {
+            Stream<String> lines = Files.lines(Paths.get(fileName));
 
-    Stream<String> lines=Files.lines(Paths.get(fileName));
+            lines.forEach((line) -> {
 
-    lines.forEach((line)->{  
+                AppConfig.getExecutor().submit(() -> {
 
-        AppConfig.getExecutor().submit(()->{
-            
-            System.out.println(Thread.currentThread().getName() + "procesando log: "+line);
-        });
-    });
-    
-        
+                    System.out.println(Thread.currentThread().getName() + "procesando log: " + line);
+                });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

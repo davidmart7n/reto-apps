@@ -16,7 +16,7 @@ public class Main {
         PokeApiClient client = new PokeApiClient();
         PokemonServiceImpl service = new PokemonServiceImpl(client, repo);
 
-        String toCapture = args.length > 0 ? args[0] : "pikachu";
+        String toCapture = args.length > 0 ? args[0] : "dragonite";
         try {
             Pokemon p = service.capturePokemon(toCapture);
             System.out.println("Captured: id=" + p.getId() + ", name=" + p.getName());

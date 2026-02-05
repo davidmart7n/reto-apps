@@ -24,7 +24,7 @@ Building **2 functional applications every single day** for 10 consecutive days.
 
 | Day | Project 1 | Project 2 | Patterns & Tech | Infrastructure |
 |:---:|:---|:---|:---|:---|
-| **01** | [🚀 CryptoPortfolio API](./Day-01/CryptoPortfolio) | [🔴 Pokedex Java](./Day-01/Pokedex) | Clean Architecture, DTOs, HTTP Client | H2 Database, Jackson JSON, PokeApi |
+| **01** | [🚀 CryptoPortfolio API](https://github.com/davidmart7n/reto-apps/tree/main/day-01/crypto-portfolio) | [🔴 Pokedex Java](https://github.com/davidmart7n/reto-apps/tree/main/day-01/pokedex) | Clean Architecture, DTOs, HTTP Client | H2 Database, Jackson JSON, PokeApi |
 | **02** | [Upcoming Project 3](./Day-02/App-3) | [Upcoming Project 4](./Day-02/App-4) | TBD | TBD |
 | **03** | ... | ... | ... | ... |
 

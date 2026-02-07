@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class PinRequest {
     private String username;
-    private String pin;
+    private String secretPin;
 }

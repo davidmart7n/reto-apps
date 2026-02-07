@@ -45,7 +45,7 @@ public class AuthController {
 
     @PostMapping("/verify-pin")
     public ResponseEntity<?> verifyPin(@RequestBody PinRequest request) {
-        boolean isValid = authService.verifyPin(request.getUsername(), request.getPin());
+        boolean isValid = authService.verifyPin(request.getUsername(), request.getSecretPin());
 
         if (isValid) {
             String token = jwtUtils.generateToken(request.getUsername());

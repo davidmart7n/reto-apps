@@ -1,69 +1,50 @@
+<p-toast position="top-center"></p-toast>
+
 <div class="flex justify-content-center align-items-center min-h-screen">
     <p-card styleClass="shadow-4" [style]="{width: '450px'}">
         <h2 class="text-center mb-4">DigitalGuard Bank</h2>
 
-        <p-tabs [value]="0">
+        <p-tabs [value]="activeTab()">
             <p-tablist>
-                <p-tab [value]="0">Acceder</p-tab>
-                <p-tab [value]="1">Registrarse</p-tab>
+                <p-tab [value]="0" (click)="activeTab.set(0)">Acceder</p-tab>
+                <p-tab [value]="1" (click)="activeTab.set(1)">Registrarse</p-tab>
             </p-tablist>
 
             <p-tabpanels>
                 <p-tabpanel [value]="0">
-                    <p-stepper [value]="activeStep()">
-                        <p-step-list>
-                            <p-step [value]="0">Login</p-step>
-                            <p-step [value]="1">Seguridad</p-step>
-                        </p-step-list>
-
-                        <p-step-panels>
-                            <p-step-panel [value]="0">
-                                <ng-template pTemplate="content">
-                                    <form [formGroup]="loginForm" class="flex flex-column gap-3 mt-3">
-                                        <input pInputText formControlName="username" placeholder="Usuario" />
-                                        <input pInputText type="password" formControlName="password"
-                                            placeholder="Contraseña" />
-                                        <p-button label="Siguiente" (onClick)="onLogin()" />
-                                    </form>
-                                </ng-template>
-                            </p-step-panel>
-
-                            <p-step-panel [value]='1'>
-                                <ng-template pTemplate="content">
-                                    <div class="flex flex-column gap-3 mt-3">
-                                        <input pInputText formControlName="pin" placeholder="PIN" />
-                                        <p-button label="Verificar" (onClick)="onVerifyPin()" />
-                                    </div>
-                                </ng-template>
-                            </p-step-panel>
-                        </p-step-panels>
-                    </p-stepper>
+                    <form [formGroup]="loginForm" class="flex flex-column gap-3 mt-3">
+                        <input pInputText formControlName="username" placeholder="Usuario" autocomplete="username" />
+                        <input pInputText type="password" formControlName="password" placeholder="Contraseña" autocomplete="current-password" />
+                        
+                        <p-button label="Identificarse" (onClick)="onLogin()" />
+                    </form>
                 </p-tabpanel>
 
                 <p-tabpanel [value]="1">
-                        <form [formGroup]="registerForm" class="flex flex-column gap-3 mt-3">
-                            <div class="flex gap-2">
-                                <input pInputText formControlName="name" placeholder="Nombre" class="w-full" />
-                                <input pInputText formControlName="secondName" placeholder="Apellidos" class="w-full" />
-                            </div>
-                            <input pInputText formControlName="username" placeholder="Usuario"
-                                autocomplete="username" />
-                            <input pInputText type="password" formControlName="password" placeholder="Contraseña"
-                                autocomplete="new-password" />
-                            <input pInputText formControlName="secretPin" placeholder="PIN Secreto (Ej: 1234)" />
+                    <form [formGroup]="registerForm" class="flex flex-column gap-3 mt-3">
+                        <div class="flex gap-2">
+                            <input pInputText formControlName="name" placeholder="Nombre" class="w-full" />
+                            <input pInputText formControlName="secondName" placeholder="Apellidos" class="w-full" />
+                        </div>
+                        <input pInputText formControlName="username" placeholder="Usuario" autocomplete="username" />
+                        <input pInputText type="password" formControlName="password" placeholder="Contraseña" autocomplete="new-password" />
+                        <input pInputText formControlName="secretPin" placeholder="PIN Secreto (Ej: 1234)" maxlength="6" />
 
-                            <p-button label="Crear Cuenta" severity="success" (onClick)="onRegister()"
-                                [disabled]="registerForm.invalid" />
-                        </form>
+                        <p-button label="Crear Cuenta" severity="success" (onClick)="onRegister()" 
+                            [disabled]="registerForm.invalid" />
+                    </form>
                 </p-tabpanel>
             </p-tabpanels>
         </p-tabs>
-
-        @if (errorMessage()) {
-        <p-message severity="error" [text]="errorMessage()!" class="mt-3 block" />
-        }
-        @if (successMessage()) {
-        <p-message severity="success" [text]="successMessage()!" class="mt-3 block" />
-        }
     </p-card>
 </div>
+
+<p-dialog header="Seguridad Requerida" [(visible)]="visiblePinModal" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '300px'}">
+    <div class="flex flex-column gap-3" [formGroup]="loginForm">
+        <p class="text-center m-0 text-gray-400">Introduce tu PIN secreto</p>
+        
+        <input pInputText type="password" formControlName="pin" class="text-center text-2xl" maxlength="6" placeholder="******" />
+        
+        <p-button label="Validar Acceso" (onClick)="onVerifyPin()" severity="success" class="w-full" />
+    </div>
+</p-dialog>

@@ -1,59 +1,35 @@
-# DigitalguardBankUi
+# 🏦 DigitalGuard Bank UI (Frontend)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.1.
+Interfaz de usuario moderna y reactiva desarrollada en Angular para interactuar con el sistema bancario seguro. Este proyecto demuestra el manejo avanzado de estado, seguridad en el cliente e interceptores HTTP.
 
-## Development server
+## 🎨 Tecnologías & UI
 
-To start a local development server, run:
+* **Framework:** Angular 17+ (Standalone Components).
+* **Estilos:** PrimeNG (Componentes UI), PrimeFlex.
+* **Lógica:** RxJS (Observables), Reactive Forms.
 
-```bash
-ng serve
-```
+## 🛡️ Patrones de Seguridad en Frontend
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 1. HTTP Interceptors
+Implementación de un `AuthInterceptor` que inyecta automáticamente el **JWT** en el header `Authorization: Bearer ...` de todas las peticiones salientes hacia el backend, asegurando que el banco nunca rechace una petición legítima.
 
-## Code scaffolding
+### 2. Angular Guards
+Protección de rutas mediante `CanActivate`.
+- Si el usuario no tiene un token válido en `localStorage`, el Guard redirige automáticamente al Login, impidiendo acceso a dashboard o transferencias.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 3. Servicios y Observables
+- **AuthService:** Gestiona el estado de la sesión (Login, Logout, 2FA) mediante `BehaviorSubject` para actualizar la UI en tiempo real.
+- Comunicación asíncrona con el backend `multi-factor-bank-guard`.
 
-```bash
-ng generate component component-name
-```
+## 📱 Flujo de la Aplicación
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1.  **Login Screen:** Formulario reactivo con validación de tipos.
+2.  **2FA Challenge:** Si la contraseña es correcta, un modal o segunda pantalla pide el PIN de seguridad.
+3.  **Dashboard:** Área protegida visible solo tras completar los dos pasos. Muestra datos traídos desde el API protegido.
 
-```bash
-ng generate --help
-```
+## 🚀 Cómo ejecutar
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1.  Asegúrate de tener el backend corriendo en el puerto `8080`.
+2.  Instalar dependencias: `npm install`.
+3.  Iniciar servidor de desarrollo: `ng serve`.
+4.  Abrir navegador en `http://localhost:4200`.

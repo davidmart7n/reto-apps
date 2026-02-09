@@ -1,14 +1,114 @@
-<!-- Form completo PrimeNG (Template-driven) -->
-@if(!report){
-<div class="general-container">
-    <section class="title-section">
-        <h2>Convert your IDEA into a </h2>
-            <h1>PLAN</h1>
-    </section>
-    <section class="form-section">
-        <form action="onSubmit">
-            <input pInputText type="text" formControlName="projectName">
+<div class="flex flex-column align-items-center justify-content-center min-h-screen p-5">
+    <!-- ESTADO1: FORMULARIO -->
+    @if (!report && !loading) {
+    <div class="flex flex-column gap-4 w-full md:w-30rem">
+
+        <div class="text-center mb-4">
+            <h2 class="text-900 font-bold text-3xl mb-2">Convert your IDEA into a PLAN</h2>
+            <p class="text-600">Complete the details to generate your technology stack.</p>
+        </div>
+
+        <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-3">
+
+            <!-- Project Name -->
+            <div class="flex flex-column gap-2">
+                <label for="pName" class="font-semibold">Project Name</label>
+                <input pInputText id="pName" formControlName="projectName" placeholder="E.g. AI SaaS Platform" />
+            </div>
+
+            <!-- Project Type -->
+            <div class="flex flex-column gap-2">
+                <label for="pType" class="font-semibold">Project Type</label>
+                <input pInputText id="pType" formControlName="projectType" placeholder="E.g. Web App, Mobile, API" />
+            </div>
+
+            <!-- TeamSkills -->
+            <div class="flex flex-column gap-2">
+                <label for="skills" class="font-semibold">Team Skills</label>
+                <input pInputText id="skills" formControlName="teamSkills" placeholder="E.g. Java, Angular, Python" />
+            </div>
+
+            <!-- Main Requiremnts -->
+            <div class="flex flex-column gap-2">
+                <label for="reqs" class="font-semibold">Main Requirements</label>
+                <textarea pInputTextarea id="reqs" formControlName="mainRequirements" rows="3"
+                    placeholder="Describe core features..."></textarea>
+            </div>
+
+            <p-button label="Generate Plan" type="submit" [disabled]="projectForm.invalid"
+                styleClass="w-full mt-3"></p-button>
         </form>
-    </section>
+
+    </div>
+    }
+
+    <!-- ESTADO 2: LOADING -->
+    @if (loading) {
+    <div class="flex flex-column align-items-center justify-content-center h-20rem">
+        <i class="pi pi-spin pi-spinner text-5xl text-primary mb-3"></i>
+        <span class="text-xl font-medium text-700">Analyzing requirements...</span>
+    </div>
+    }
+
+    <!-- ESTADO 3: REPORTE (RESPUESTA) -->
+    @if (reportData && !loading) {
+    <div class="w-full md:w-8 fadein animation-duration-500">
+
+        <div class="flex justify-content-between align-items-center mb-4">
+            <h2 class="text-3xl font-bold text-900 m-0">Your Tech Stack Plan</h2>
+            <p-button icon="pi pi-refresh" label="New Project" (onClick)="reset()" severity="secondary"></p-button>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid">
+            <!-- Frontend -->
+            <div class="col-12 md:col-4">
+                <div class="surface-card p-3 shadow-2 border-round h-full border-top-3 border-blue-500">
+                    <div class="text-500 font-medium mb-2"><i class="pi pi-desktop mr-2"></i>Frontend</div>
+                    <div class="text-900 font-bold text-xl">{{ reportData.frontend }}</div>
+                </div>
+            </div>
+            <!-- Backend -->
+            <div class="col-12 md:col-4">
+                <div class="surface-card p-3 shadow-2 border-round h-full border-top-3 border-orange-500">
+                    <div class="text-500 font-medium mb-2"><i class="pi pi-server mr-2"></i>Backend</div>
+                    <div class="text-900 font-bold text-xl">{{ reportData.backend }}</div>
+                </div>
+            </div>
+            <!-- Database -->
+            <div class="col-12 md:col-4">
+                <div class="surface-card p-3 shadow-2 border-round h-full border-top-3 border-green-500">
+                    <div class="text-500 font-medium mb-2"><i class="pi pi-database mr-2"></i>Database</div>
+                    <div class="text-900 font-bold text-xl">{{ reportData.database }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reasoning Section -->
+        <div class="surface-card p-4 shadow-2 border-round mt-3">
+            <h3 class="text-xl font-bold mb-3 border-bottom-1 surface-border pb-2">Architecture Reasoning</h3>
+            <p class="line-height-3 text-700">{{ reportData.reasoning }}</p>
+
+            <div class="flex flex-wrap gap-4 mt-4 pt-3 border-top-1 surface-border">
+                <div class="flex align-items-center">
+                    <i class="pi pi-money-bill text-green-500 text-2xl mr-2"></i>
+                    <div>
+                        <span class="block text-500 text-sm">Est. Cost</span>
+                        <span class="font-bold text-900">{{ reportData.estimatedCost }}</span>
+                    </div>
+                </div>
+                <div class="flex align-items-center">
+                    <i class="pi pi-clock text-blue-500 text-2xl mr-2"></i>
+                    <div>
+                        <span class="block text-500 text-sm">Timeline</span>
+                        <span class="font-bold text-900">{{ reportData.estimatedTime }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    }
+
+
 </div>
-}

@@ -13,7 +13,7 @@ export class AiService {
   private apiUrl:string="http://localhost:8085/api/ai"
 
   getRecommendation(project:Project):Observable<StackReport>{
-    return this.http.get<StackReport>(this.apiUrl);
+    return this.http.post<StackReport>(this.apiUrl,project);
   }
 
 }

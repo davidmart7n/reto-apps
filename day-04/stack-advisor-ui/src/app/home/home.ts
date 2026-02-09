@@ -1,46 +1,68 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
-import { Button } from 'primeng/button';
-import { Checkbox } from 'primeng/checkbox';
-import { InputText } from 'primeng/inputtext';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { InputText, InputTextModule } from 'primeng/inputtext';
 import { AiService } from '../service/ai.service';
-import { Project } from '../model/models'
-
-interface User {
-  name: string;
-  terms: boolean;
-}
+import { Project, StackReport } from '../model/models';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ReactiveFormsModule, InputText, Checkbox, Button],
-  templateUrl: './home.html'
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputText,
+    ButtonModule
+  ],
+  templateUrl: './home.html',
+  styleUrls: ['./home.css'] 
 })
 export class HomeComponent {
   loading = false;
   report = false;
-  projectForm!: FormGroup;
-  project:Project={ projectName: '', projectType:'', teamSkills:'', mainRequirements:''};
+  reportData: StackReport | null = null;
+  projectForm: FormGroup;
 
   constructor(private fb: FormBuilder, private service: AiService) {
     this.projectForm = this.fb.group({
-      projectName: [''],
-      projectType: [''],
+      projectName: ['', Validators.required],
+      projectType: ['', Validators.required],
       teamSkills: [''],
-      mainRequirements: ['']
-    })
+      mainRequirements: ['', Validators.required]
+    });
   }
 
 
   onSubmit() {
     if (this.projectForm.valid) {
       this.loading = true;
-      console.log('Enviando:', this.project);
-      this.project=this.projectForm.value;
-      // Tu API call aquí
-      this.service.getRecommendation(this.project)
-      .subscribe()
+      const projectData = this.projectForm.value;
+
+      this.service.getRecommendation(projectData).subscribe({
+        next: (response: any) => {
+          try {
+            this.reportData = typeof response === 'string' ? JSON.parse(response) : response;
+            this.report = true;
+
+          } catch (e) {
+            console.error("Error parseando JSON", e);
+            this.reportData = { backend: 'Error', frontend: 'Error', database: 'Error', reasoning: 'Could not parse response', estimatedCost: '-', estimatedTime: '-' };
+          }
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.loading = false;
+        }
+      });
     }
+  }
+
+  reset() {
+    this.report = false;
+    this.reportData = null;
+    this.projectForm.reset();
   }
 }

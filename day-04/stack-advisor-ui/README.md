@@ -1,59 +1,42 @@
-# StackAdvisorUi
+# 🔐 MultiFactor Bank Guard (Backend)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.1.
+Un sistema de seguridad bancario robusto construido con Spring Boot que implementa autenticación de doble factor (2FA) y arquitectura en capas. Este servicio actúa como la autoridad de seguridad y gestión de datos para la interfaz `digitalguard-bank-ui`.
 
-## Development server
+## 🏗️ Arquitectura & Tecnologías
 
-To start a local development server, run:
+Este proyecto sigue una **Layered Architecture** estricta para separar la lógica de negocio de la seguridad y el acceso a datos.
 
-```bash
-ng serve
-```
+* **Core:** Java 21, Spring Boot 3.x
+* **Seguridad:** Spring Security 6, JWT (JSON Web Tokens), BCrypt Hashing.
+* **Persistencia:** Spring Data JPA, Hibernate, H2 Database (para desarrollo).
+* **API:** REST Controllers, Jakarta Validation.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Key Features
 
-## Code scaffolding
+### 1. Autenticación en 2 Pasos (2FA)
+El flujo de seguridad no es el tradicional. Requiere dos verificaciones:
+1.  **Credenciales:** Usuario y Contraseña estándar.
+2.  **Security PIN:** Un segundo código numérico que valida la transacción de login antes de emitir el token final.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 2. Gestión de JWT
+- Generación de tokens firmados tras la validación exitosa de los 2 pasos.
+- Filtro de seguridad personalizado (`JwtAuthenticationFilter`) para interceptar peticiones y validar el token en cabeceras.
 
-```bash
-ng generate component component-name
-```
+### 3. Registro de Usuarios Seguro
+- Endpoint público para registro.
+- Encriptación de contraseñas y PINs usando `BCryptPasswordEncoder` antes de guardar en base de datos.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📡 API Endpoints
 
-```bash
-ng generate --help
-```
+| Método | Endpoint | Descripción | Acceso |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/register` | Registro de nuevo usuario (User + Pass + PIN) | Público |
+| `POST` | `/api/auth/login` | Paso 1: Valida credenciales. Retorna `PRE_AUTH_TOKEN` | Público |
+| `POST` | `/api/auth/verify-pin` | Paso 2: Valida PIN. Retorna `JWT_ACCESS_TOKEN` | Pre-Auth |
+| `GET` | `/api/account/balance` | Consulta de saldo (Demo protegida) | **Privado (JWT)** |
 
-## Building
+## 🛠️ Cómo ejecutar
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1.  Clonar el repositorio.
+2.  Ejecutar con Maven: `mvn spring-boot:run`.
+3.  El servidor iniciará en el puerto `8080`.

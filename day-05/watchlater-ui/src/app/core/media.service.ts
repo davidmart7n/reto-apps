@@ -10,13 +10,8 @@ export class MediaService{
 
     constructor(private httpClient:HttpClient){}
 
-    
-
-    public getAllMedia():Observable<Media[]>{
-       return this.httpClient.get<Media[]>(this.apiUrl);
-    }
-
     public getMediaPage(page:number,size:number):Observable<any>{
+        console.log('Calling API')
         const params=`?page=${page}&size=${size}`;
         return this.httpClient.get<{totalElements:number,media:Media[]}>(this.apiUrl+ params);
     }

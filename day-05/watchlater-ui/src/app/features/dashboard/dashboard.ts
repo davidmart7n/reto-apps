@@ -34,11 +34,11 @@ export class Dashboard {
 
   loadCards() {
     this.loading = true;
-    const page = this.first / this.rows;  // ← 0, 1, 2...
+    const page = this.first / this.rows;  
     this.mediaService.getMediaPage(page, this.rows).subscribe({
       next: (res) => {
-        this.cards = res.content;           // ← Datos página
-        this.totalRecords = res.totalElements; // ← Total backend
+        this.cards = res.content;          
+        this.totalRecords = res.totalElements; 
         this.loading = false;
       }
     });

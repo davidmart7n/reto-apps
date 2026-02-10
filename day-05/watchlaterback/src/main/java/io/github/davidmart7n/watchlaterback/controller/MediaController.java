@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,8 +34,8 @@ public class MediaController {
     };
 
     @GetMapping
-    public ResponseEntity<List<MediaDTO>> getAllMedia() {
-        return ResponseEntity.ok(service.findAllMedia());
+    public ResponseEntity<Page<MediaDTO>> getAllMedia(Pageable pageable) {
+        return ResponseEntity.ok(service.findAllMedia(pageable));
     }
 
     @GetMapping("/search")

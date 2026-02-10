@@ -2,6 +2,8 @@ package io.github.davidmart7n.watchlaterback.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import io.github.davidmart7n.watchlaterback.domain.Media;
@@ -19,10 +21,9 @@ public class MediaService {
         this.repository = repository;
     }
 
-    public List<MediaDTO> findAllMedia() {
-        return repository.findAll().stream()
-                .map(MediaMapper::toDTO)
-                .toList();
+    public Page<MediaDTO> findAllMedia(Pageable pageable) {
+        Page<Media> page = repository.findAll(pageable);
+        return page.map(MediaMapper::toDTO);
     }
 
     public MediaDTO findByTitle(String title) {

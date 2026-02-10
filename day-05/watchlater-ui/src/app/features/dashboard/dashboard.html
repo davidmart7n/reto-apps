@@ -4,7 +4,7 @@
   <div class="bg-black p-12 rounded-2xl">
     <h2 class="bg-grey text-2xl shadow-lg rounded-lg p-6">{{card.title}}</h2>
 
-    <div class="text-xs text-center w-fit rounded-4xl bg-blue-500 px-2 py-1">
+    <div [ngClass]="getTypeClass(card.type)" class="text-xs text-center w-fit rounded-4xl bg-blue-500 px-2 py-1">
       {{card.type.toLowerCase()}}
     </div>
   </div>

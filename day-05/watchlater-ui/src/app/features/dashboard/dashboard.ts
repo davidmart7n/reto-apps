@@ -4,39 +4,55 @@ import { Media } from '../../shared/models';
 import { Observable } from 'rxjs';
 import { TableModule } from 'primeng/table'
 import { Paginator } from "primeng/paginator";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [TableModule, Paginator],
+  imports: [TableModule, Paginator, CommonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  allMedias: Media[] = [];  // Todos los datos
   cards: Media[] = [];
   totalRecords = 0;
   first = 0;
   rows = 6;
+  loading=false;
   
   constructor(private mediaService:MediaService){}
 
-  ngOnInit() {
-    this.mediaService.getAllMedia().subscribe(medias => {
-      this.allMedias = medias;
-      this.totalRecords = medias.length;
-      this.updateCards();  // ← Pagina inicial
-    });
-  }
+  ngOnInit(){
+    this.loadCards();
+    };
+  
 
   onPageChange(event: any) {
     this.first = event.first;
     this.rows = event.rows;
-    this.updateCards();
+    this.loadCards();
   }
 
-  private updateCards() {
-    const start = this.first;
-    const end = start + this.rows;
-    this.cards = this.allMedias.slice(start, end);
+  loadCards() {
+    this.loading = true;
+    const page = this.first / this.rows;  // ← 0, 1, 2...
+    this.mediaService.getMediaPage(page, this.rows).subscribe({
+      next: (res) => {
+        this.cards = res.content;           // ← Datos página
+        this.totalRecords = res.totalElements; // ← Total backend
+        this.loading = false;
+      }
+    });
   }
+
+  getTypeClass(type: string): string {
+  const colors: { [key: string]: string } = {
+    'movie': 'bg-red-500 text-white',
+    'serie': 'bg-blue-500 text-white',
+    'documental': 'bg-green-500 text-white',
+    'video': 'bg-yellow-500 text-white',
+    'default': 'bg-gray-500 text-white'
+  };
+  return colors[type.toLowerCase()] || colors['default'];
+}
+
 }

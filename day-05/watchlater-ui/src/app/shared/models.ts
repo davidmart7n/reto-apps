@@ -5,3 +5,4 @@ export interface Media{
     type:'VIDEO' |'MOVIE' | 'SERIE' | 'DOCUMENTAL',
     duration:number
 }
+// export interface PageResponse<T>

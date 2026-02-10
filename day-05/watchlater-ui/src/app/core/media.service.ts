@@ -16,4 +16,9 @@ export class MediaService{
        return this.httpClient.get<Media[]>(this.apiUrl);
     }
 
+    public getMediaPage(page:number,size:number):Observable<any>{
+        const params=`?page=${page}&size=${size}`;
+        return this.httpClient.get<{totalElements:number,media:Media[]}>(this.apiUrl+ params);
+    }
+
 }

@@ -1,42 +1,47 @@
-# 🔐 MultiFactor Bank Guard (Backend)
 
-Un sistema de seguridad bancario robusto construido con Spring Boot que implementa autenticación de doble factor (2FA) y arquitectura en capas. Este servicio actúa como la autoridad de seguridad y gestión de datos para la interfaz `digitalguard-bank-ui`.
+***
 
-## 🏗️ Arquitectura & Tecnologías
+### Frontend (`stack-advisor-ui`)
 
-Este proyecto sigue una **Layered Architecture** estricta para separar la lógica de negocio de la seguridad y el acceso a datos.
 
-* **Core:** Java 21, Spring Boot 3.x
-* **Seguridad:** Spring Security 6, JWT (JSON Web Tokens), BCrypt Hashing.
-* **Persistencia:** Spring Data JPA, Hibernate, H2 Database (para desarrollo).
-* **API:** REST Controllers, Jakarta Validation.
+# 💎 Stack Advisor - Frontend
 
-## 🚀 Key Features
+Modern **Angular 18+** web application for AI-powered tech stack recommendations. Built with **PrimeNG v20** (Standalone) and **Reactive Forms**.
 
-### 1. Autenticación en 2 Pasos (2FA)
-El flujo de seguridad no es el tradicional. Requiere dos verificaciones:
-1.  **Credenciales:** Usuario y Contraseña estándar.
-2.  **Security PIN:** Un segundo código numérico que valida la transacción de login antes de emitir el token final.
+## 🚀 Features
+- **Standalone Architecture**: No NgModules, self-contained components
+- **Reactive Forms**: Robust validation and strong typing
+- **Modern UI**: PrimeNG v20 components + PrimeFlex utilities
+- **UX**: Loading spinners and structured results visualization
 
-### 2. Gestión de JWT
-- Generación de tokens firmados tras la validación exitosa de los 2 pasos.
-- Filtro de seguridad personalizado (`JwtAuthenticationFilter`) para interceptar peticiones y validar el token en cabeceras.
+## 🛠️ Tech Stack
+- **Angular 18+** (Standalone Components)
+- **TypeScript 5+**
+- **PrimeNG 20** (UI Components)
+- **PrimeFlex** (CSS Utilities)
+- **RxJS** (Async handling)
 
-### 3. Registro de Usuarios Seguro
-- Endpoint público para registro.
-- Encriptación de contraseñas y PINs usando `BCryptPasswordEncoder` antes de guardar en base de datos.
+## ⚙️ Installation
+```bash
+# 1. Install dependencies
+npm install
 
-## 📡 API Endpoints
+# 2. Install UI libraries
+npm install primeng primeicons primeflex
 
-| Método | Endpoint | Descripción | Acceso |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/auth/register` | Registro de nuevo usuario (User + Pass + PIN) | Público |
-| `POST` | `/api/auth/login` | Paso 1: Valida credenciales. Retorna `PRE_AUTH_TOKEN` | Público |
-| `POST` | `/api/auth/verify-pin` | Paso 2: Valida PIN. Retorna `JWT_ACCESS_TOKEN` | Pre-Auth |
-| `GET` | `/api/account/balance` | Consulta de saldo (Demo protegida) | **Privado (JWT)** |
+# 3. Run dev server
+ng serve
+Access at: http://localhost:4200
+```
+## 🏗️ Key Structure
+- **`home.component.ts`**: Main logic. Uses `FormBuilder` for forms and `HttpClient` for backend connection
+- **`home.html`**: Template with modern control flow (`@if`, `@for`)
+- **`ai.service.ts`**: Injectable service managing API communication (`/api/ai`)
+- **`models.ts`**: TypeScript interfaces (`Project`, `StackReport`) for strict typing
 
-## 🛠️ Cómo ejecutar
+## 🎨 Styling
+Uses `primeflex` for rapid layout:
+- `flex`, `align-items-center`, `justify-content-center` for layout
+- `surface-card`, `shadow-2`, `border-round` for cards
 
-1.  Clonar el repositorio.
-2.  Ejecutar con Maven: `mvn spring-boot:run`.
-3.  El servidor iniciará en el puerto `8080`.
+

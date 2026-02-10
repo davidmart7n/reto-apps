@@ -29,7 +29,8 @@ Building **2 functional applications every single day** for 10 consecutive days.
 | **01** | [🚀 CryptoPortfolio API](https://github.com/davidmart7n/reto-apps/tree/main/day-01/crypto-portfolio) | [🔴 Pokedex Java](https://github.com/davidmart7n/reto-apps/tree/main/day-01/pokedex) | Clean Architecture, DTOs, HTTP Client | H2 Database, Jackson JSON, PokeApi |
 | **02** | [🛡️ NIO Async Defender](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-02/nio-async-defender) | [🧠 Defender Brain](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-02/defenderbrain) | Non-blocking I/O, Thread Pools, Microservices | Java NIO, Spring Boot, Jakarta Validation |
 | **03** | [🏦 DigitalGuard Bank UI](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-03/digitalguard-bank-ui) | [🔐 MultiFactor Bank Guard](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-03/multi-factor-bank-guard) | JWT, Interceptors, Guards, 2FA (Pwd+PIN) | Spring Security, Angular, PrimeNG, JPA |
-| **04** | ... | ... | ... | ... |
+| **04** | [🤖 AI Stack Advisor](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-04/ai-stack-advisor) | [💎 Stack Advisor UI](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-04/stack-advisor-ui) | AI Integration (Gemini), Reactive Forms, Standalone Components | Spring AI, Google GenAI SDK, Angular 18, PrimeNG 20 |
+
 
 
 ---

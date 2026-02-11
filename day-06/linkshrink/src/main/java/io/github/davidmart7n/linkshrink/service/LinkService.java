@@ -28,6 +28,7 @@ public class LinkService {
                 .clicks(0L)
                 .build();
         Link saved = repository.save(entity);
+        System.out.println("\nOriginal URL"+saved.getOriginalUrl()+"\n");
         return mapToDto(saved);
     }
 

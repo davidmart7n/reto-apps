@@ -1,1 +1,29 @@
-<p>home works!</p>
+<div class="p-5 flex flex-col items-center justify-center">
+<h1 class="text-5xl text-center py-15">GET YOUR SHORT-LINK</h1>
+<div><input id="inputLink" class="py-10" [(ngModel)]="inputLink" pInputText type="text">
+<p-button class="ml-6" label="Send it!" (onClick)="sendLink()"></p-button>
+</div>
+</div>
+<div>
+<h2 class="2xl">SHORT-LINKS CREATED</h2>
+<p-table [value]="links">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Id</th>
+            <th>Original Url</th>
+            <th>Short Url</th>
+            <th>Short Code</th>
+            <th>Clicks</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-link>
+        <tr>
+            <td>{{link.id}}</td>
+            <td>{{link.originalUrl}}</td>
+            <td>{{link.shortUrl}}</td>
+            <td>{{link.shortCode}}</td>
+            <td>{{link.clicks}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>

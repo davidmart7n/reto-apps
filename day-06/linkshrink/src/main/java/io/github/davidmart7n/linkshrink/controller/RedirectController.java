@@ -26,7 +26,7 @@ public class RedirectController {
     public ResponseEntity<Void> redirect(@PathVariable String shortCode) {
         Link link = service.findByShortCode(shortCode);
         link.setClicks(link.getClicks() + 1);
-        service.saveLink(link); // Actualiza clicks
+        service.saveLink(link); 
 
         return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY)
                 .location(URI.create(link.getOriginalUrl()))

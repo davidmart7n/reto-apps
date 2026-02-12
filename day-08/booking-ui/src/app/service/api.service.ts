@@ -14,4 +14,12 @@ export class ApiService{
     let urlWithDate=`${this.apiUrl}?date=${date}`;
     return this.http.get<Appointment[]>(urlWithDate);
   }
+
+  createAppointment(appointment:Appointment):Observable<Appointment>{
+    return this.http.post<Appointment>(this.apiUrl,appointment);
+  }
+
+  deleteAppointment(id:number):Observable<any>{
+    return this.http.delete<any>(this.apiUrl+String(id));
+  }
 }

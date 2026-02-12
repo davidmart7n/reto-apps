@@ -1,12 +1,26 @@
-<div id="general-container">
+<div id="general-container" class="flex flex-col items-center border-2 border-yellow-100 mx-96 mt-50 rounded-2xl py-20">
 
-    <h1>Select your Date</h1>
+    <h1 class="flex text-center text-4xl p-10 mb-6 bg-blend-color-burn">Select your Date</h1>
 
     <p-datepicker
     [(ngModel)]="date"
     dateFormat="dd/mm/yyyy"
     [showIcon]="true"
-    
+    (ngModelChange)="ngOnInit()"
     ></p-datepicker>
+    <div id="cards-container">
+    @if(appointments.length==0 || appointments==null){
+        <div class="bg-amber-100 p-7 my-36 rounded-2xl border-2 border-amber-400 w-80">
+        <h2 class="text-yellow-500 ">No appointments on this Date! <i class="pi pi-exclamation-triangle text-yellow-500"></i></h2>
+        </div>
+    }@else{
+    @for (appointment of appointments; track appointment.id) {
+      
+        <p-card >
+           <h2><b>{{appointment.client}}</b></h2>
+            <p><b>Time:</b>{{appointment.startHour}}</p>
+        </p-card>
+    }
+} </div>
 
 </div>

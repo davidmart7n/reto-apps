@@ -21,6 +21,42 @@
             <p><b>Time:</b>{{appointment.startHour}}</p>
         </p-card>
     }
-} </div>
+} 
+</div>
+<hr class="w-full my-10 border-amber-200">
+
+<div id="create-container" class="mt-10 p-8 border border-gray-200 rounded-2xl w-full max-w-lg shadow-lg bg-gray-100">
+    <h2 class="text-2xl font-bold mb-8 text-gray-700">New Appointment</h2>
+    
+    <form [formGroup]="appointmentForm" (ngSubmit)="saveAppointment()" class="flex flex-col gap-6 ">
+        
+        <p-floatlabel>
+            <input 
+                pInputText 
+                id="client_name" 
+                formControlName="client" 
+                class="w-full" />
+            <label for="client_name">Client Name</label>
+        </p-floatlabel>
+            
+        <div class="flex flex-col gap-2">
+            <label class="text-sm font-semibold text-gray-500 ml-1">Start Hour</label>
+            <input 
+                pInputText
+                type="time" 
+                formControlName="startHour" 
+                class="w-full">
+        </div>
+
+        <p-button 
+            label="Confirm Booking" 
+            icon="pi pi-check" 
+            type="submit" 
+            [disabled]="appointmentForm.invalid"
+            styleClass="w-full p-button-warning rounded-xl">
+        </p-button>
+
+    </form>
+</div>
 
 </div>

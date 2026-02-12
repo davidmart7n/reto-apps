@@ -1,46 +1,64 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker'
 import { ApiService } from '../service/api.service';
 import { Appointment } from '../model/models';
 import { Paginator } from 'primeng/paginator';
 import { Card } from 'primeng/card';
+import { Button } from 'primeng/button';
+import { FloatLabel } from 'primeng/floatlabel';
+
+
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, DatePickerModule, Paginator, Card],
+  imports: [FormsModule, DatePickerModule, Card, ReactiveFormsModule, Button,FloatLabel],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
-  
-  appointments:Appointment[]=[];
-  date="";
-  
 
-  constructor(private apiService:ApiService){}
+  appointments: Appointment[] = [];
+  date: Date = new Date();
 
-  ngOnInit(){
-    const date=this.getDayFormatted();
+  constructor(private apiService: ApiService) { }
 
-    this.apiService.getByDate(date).subscribe({
-      next:(data)=>{
-        this.appointments=data;
-        console.log(data);
-      },
-      error:(error)=>console.error("Failed data fetch: ",error)
-    });
+  appointmentForm:FormGroup=new FormGroup({
+    client: new FormControl('', [Validators.required]),
+    startHour: new FormControl('',[Validators.required])
+  })
+
+  ngOnInit() {
+
+    this.loadAppointments();
 
   }
 
-  getDayFormatted():string{
-    const today= new Date();
+  loadAppointments() {
+    const formattedDate = this.formatDate(this.date);
+    this.apiService.getByDate(formattedDate).subscribe(res => {
+      this.appointments = res
+    })
+  }
 
-    const day = String(today.getDate()).padStart(2,"0");
-    const month= String(today.getMonth()+1).padStart(2,"0");
-    const year=String(today.getFullYear());
+  saveAppointment(){
+    if(this.appointmentForm.valid){
+      const appointmentCreation:Appointment={
+        client:this.appointmentForm.value.client,
+        startHour:this.appointmentForm.value.startHour,
+        date:this.formatDate(this.date)
+      }
+      this.apiService.createAppointment(appointmentCreation).subscribe(res=>{
+        this.appointmentForm.reset();
+        this.loadAppointments();
+      });
+    }
+  }
 
-    return String(`${day}-${month}-${year}`);
+  private formatDate(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
   }
 }

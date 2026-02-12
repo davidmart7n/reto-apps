@@ -31,7 +31,7 @@ public class MediaController {
 
     public MediaController(MediaService service) {
         this.service = service;
-    };
+    }
 
     @GetMapping
     public ResponseEntity<Page<MediaDTO>> getAllMedia(Pageable pageable) {

@@ -34,7 +34,7 @@ public class Appointment {
     LocalDate date;
     
     @NotNull
-    Integer startHour;
+    String startHour;
 
 
 }

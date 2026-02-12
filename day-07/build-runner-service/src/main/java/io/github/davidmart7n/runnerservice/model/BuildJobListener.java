@@ -20,9 +20,9 @@ public class BuildJobListener {
     public void startBuildJob(GitPushEvent event) throws InterruptedException {
         System.out.println("🔨 [NUEVO TRABAJO] Recibido evento de: " + event.repoName());
         
-        // Simulamos un proceso largo (Build)
+        
         System.out.println("⚙️  Compilando rama '" + event.branch() + "' (Autor: " + event.author() + ")...");
-        Thread.sleep(2000); // Espera 2 segundos (simulación)
+        Thread.sleep(2000); 
         
         System.out.println("✅  Build completado exitosamente para commit: " + event.commitId());
         System.out.println("--------------------------------------------------");

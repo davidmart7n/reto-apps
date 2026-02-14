@@ -12,7 +12,7 @@ import io.github.davidmart7n.domain.SearchCriteria;
 
 public class DataReporter {
     
-    public boolean generateReport(List<SearchCriteria> criteria, List<CorporateClient> clients){
+    public static boolean generateReport(List<SearchCriteria> criteria, List<CorporateClient> clients){
         StringBuilder criteriaSummary = new StringBuilder();
         criteria.forEach((c)->criteriaSummary.append(" -").append(c.toString()).append("\n"));
 
@@ -32,13 +32,12 @@ public class DataReporter {
                 """.formatted(criteriaSummary.toString(), clients.size(), clientRows.toString());
 
         try{
-            Instant now = Instant.now();
+            String now = Instant.now().toString().replace(":", "-");
             Files.writeString(Paths.get(now.toString()+"txt"), reportString);
+            return true;
         }catch(IOException e){
             e.printStackTrace();
             return false;
         }
-
-        return false;
     }
 }

@@ -1,0 +1,11 @@
+================================G
+REPORTE DE BUSQUEDA DE CLIENTES
+================================
+CRITERIOS APLICADOS:
+ -SearchCriteria [key=annualRevenue, operation=GREATER_THAN, value=9400000]
+
+RESULTADOS (Encontrados 2):
+ID,NOMBRE,RIESGO,ACTIVO
+3,Global Logistics,MEDIUM,true 
+5,Stark Industries,LOW,true 
+

@@ -12,6 +12,8 @@ public class CorporateClient {
     LocalDate lastAuditDate;
     boolean isActive;
 
+    public CorporateClient(){};
+
     public CorporateClient(Long id, String name, Double annualRevenue, Double annualExpenses, RiskLevel riskLevel,
             LocalDate lastAuditDate, boolean isActive) {
         this.id = id;
@@ -25,6 +27,10 @@ public class CorporateClient {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(){
+        this.id=id;
     }
 
     public String getName() {

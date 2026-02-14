@@ -11,20 +11,24 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import io.github.davidmart7n.domain.CorporateClient;
 import io.github.davidmart7n.domain.SearchCriteria;
+import io.github.davidmart7n.reporter.DataReporter;
 
 public class DataClient {
     
     private HttpClient client= HttpClient.newHttpClient();
 
     ObjectMapper mapper = new ObjectMapper();
+    
 
     private String apiUrl="http://localhost:8085/";
 
-    public List<CorporateClient> getDataByCriteria(List<SearchCriteria> criteria){
+    public List<CorporateClient> getDataAndReportByCriteria(List<SearchCriteria> criteria){
         try{
+        mapper.registerModule(new JavaTimeModule());
         String jsonCriteria = mapper.writeValueAsString(criteria);
         HttpRequest request = HttpRequest.newBuilder()
                                          .uri(URI.create(apiUrl))
@@ -36,9 +40,15 @@ public class DataClient {
 
         if(response.statusCode()== 204) return List.of();
 
-        return mapper.readValue(response.body(), new TypeReference<List<CorporateClient>>(){});
+        List<CorporateClient> listClients= mapper.readValue(response.body(), new TypeReference<List<CorporateClient>>(){});
+        DataReporter.generateReport(criteria, listClients);
+
+        return listClients;
+
         }catch(Exception e){
-            throw new RuntimeException("Error en llamada a la api: " + e.toString());
+            System.err.println("Error en llamada a la api");
+            e.printStackTrace();
+            throw new RuntimeException("Error en llamada a la api");            
         }
     }
 

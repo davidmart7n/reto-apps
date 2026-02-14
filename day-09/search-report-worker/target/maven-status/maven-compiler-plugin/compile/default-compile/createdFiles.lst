@@ -1,0 +1,9 @@
+io\github\davidmart7n\api\DataClient$1.class
+io\github\davidmart7n\domain\FilterOperation.class
+io\github\davidmart7n\Main.class
+io\github\davidmart7n\api\DataClient.class
+io\github\davidmart7n\domain\SearchCriteria.class
+io\github\davidmart7n\domain\RiskLevel.class
+io\github\davidmart7n\domain\DataResponse.class
+io\github\davidmart7n\reporter\DataReporter.class
+io\github\davidmart7n\domain\CorporateClient.class

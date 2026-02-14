@@ -1,0 +1,5 @@
+INSERT INTO corporate_client (name, annual_revenue, annual_expenses, risk_level, last_audit_date, is_active) VALUES ('Tech Nova', 2000000.0, 1500000.0, 'LOW', '2025-01-15', true);
+INSERT INTO corporate_client (name, annual_revenue, annual_expenses, risk_level, last_audit_date, is_active) VALUES ('BioGenix', 500000.0, 480000.0, 'HIGH', '2024-11-20', true);
+INSERT INTO corporate_client (name, annual_revenue, annual_expenses, risk_level, last_audit_date, is_active) VALUES ('Global Logistics', 10000000.0, 9500000.0, 'MEDIUM', '2025-02-01', true);
+INSERT INTO corporate_client (name, annual_revenue, annual_expenses, risk_level, last_audit_date, is_active) VALUES ('Crisis Solution', 100000.0, 150000.0, 'CRITICAL', '2024-05-10', false);
+INSERT INTO corporate_client (name, annual_revenue, annual_expenses, risk_level, last_audit_date, is_active) VALUES ('Stark Industries', 50000000.0, 10000000.0, 'LOW', '2025-02-13', true);

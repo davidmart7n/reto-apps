@@ -35,6 +35,7 @@ Building **2 functional applications every single day** for 10 consecutive days.
 | **07** | [🎣 Webhook Service](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-07/webhook-service) | [🏗️ Build Runner](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-07/build-runner-service) | Event-Driven Arch, Observer Pattern, Command Execution | Kafka / RabbitMQ, Java ProcessBuilder, Docker SDK |
 | **08** | [📅 Booking Engine](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-08/booking-slots-engine) | [📆 Booking UI](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-08/booking-ui) | Optimistic Locking, Concurrency Control, Date Ranges | JPA (`@Version`), FullCalendar, ZonedDateTime |
 | **09** | [🔎 Search Specs API](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-09/search-specification-api) | [📊 Report Worker](https://github.com/davidmart7n/10-days-20-apps-challenge/tree/main/day-09/search-report-worker) | JPA Specifications, Criteria API, Async Processing | Spring Data JPA, Apache POI (Excel Export), `@Async` |
+| **10** | [⚡ Ultimatum Core](https://github.com/davidmart7n/ultimatum-project/tree/main/dev-ultimatum-studio) | [🎨 Ultimatum Studio](https://github.com/davidmart7n/ultimatum-project/tree/main/dev-ultimatum-studio-ng) | Scalable Architecture, MVP -> Production, Building in Public | Spring Data JPA, Spring AI, Angular 20, OpenSource Main Project |
 ---
 
 ## 🤝 Let’s Build Together (Open for Collabs!)
